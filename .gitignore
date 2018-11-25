@@ -53,3 +53,5 @@ dkms.conf
 
 # Output build artifacts
 bin/
+test.c
+mathtest

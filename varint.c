@@ -47,12 +47,14 @@ unsigned long long varint_decode(varint varint){
             return header;
     }
     if(header <= 248){
-            free(varint);
-            return 240UL + ((header - 241) << 8) + (unsigned char)varint[1];
+            unsigned long long result = 240UL + ((header - 241) << 8) + (unsigned char)varint[1];
+            free(varint); 
+            return result;       
     }
     if(header == 249){
+            unsigned long long result = 2288UL + ((unsigned char)varint[1] << 8) + (unsigned char)varint[2];
             free(varint);
-            return 2288UL + ((unsigned char)varint[1] << 8) + (unsigned char)varint[2];
+            return result;
     }
     unsigned long result = (unsigned char)varint[1] | ((unsigned char)varint[2] << 8) | ((unsigned char)varint[3]);
     int compare = 2;
